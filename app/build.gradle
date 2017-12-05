@@ -1,0 +1,76 @@
+apply plugin: 'com.android.application'
+
+android {
+    signingConfigs {
+        config {
+            keyAlias 'key0'
+            keyPassword 'shivam'
+            storeFile file('../Keystore/keystore.jks')
+            storePassword 'shivam'
+        }
+    }
+    compileSdkVersion 26
+    defaultConfig {
+        applicationId "com.example.shivammaheshwari.wallpaperx"
+        minSdkVersion 16
+        targetSdkVersion 26
+        versionCode 1
+        versionName "1.0"
+        testInstrumentationRunner "android.support.test.runner.AndroidJUnitRunner"
+    }
+    buildTypes {
+        release {
+            minifyEnabled false
+            proguardFiles getDefaultProguardFile('proguard-android.txt'), 'proguard-rules.pro'
+            signingConfig signingConfigs.config
+        }
+        debug {
+            signingConfig signingConfigs.config
+        }
+    }
+    buildTypes.each {
+        it.buildConfigField 'String', 'MY_API_KEY', MyApiKey
+    }
+}
+
+
+dependencies {
+    implementation fileTree(include: ['*.jar'], dir: 'libs')
+    implementation 'com.android.support:appcompat-v7:26.1.0'
+    implementation 'com.android.support:design:26.1.0'
+    implementation 'com.android.support.constraint:constraint-layout:1.0.2'
+    //firebase messaging for push notifications
+    implementation 'com.google.firebase:firebase-messaging:11.4.2'
+    //firebase auth for login screen
+    implementation 'com.google.firebase:firebase-auth:11.4.2'
+    implementation 'com.google.firebase:firebase-ads:11.4.2'
+    compile 'com.firebaseui:firebase-ui-auth:3.1.0'
+    testImplementation 'junit:junit:4.12'
+    androidTestImplementation 'com.android.support.test:runner:1.0.1'
+    androidTestImplementation 'com.android.support.test.espresso:espresso-core:3.0.1'
+    compile 'com.android.support:recyclerview-v7:26.1.0'
+    compile 'com.android.support:preference-v7:26.+'
+    compile 'com.github.bumptech.glide:glide:4.3.1'
+    annotationProcessor 'com.github.bumptech.glide:compiler:4.3.1'
+    compile 'de.hdodenhof:circleimageview:2.2.0'
+    compile 'com.squareup.picasso:picasso:2.5.2'
+    annotationProcessor 'com.jakewharton:butterknife-compiler:8.8.1'
+    compile 'com.jakewharton:butterknife:8.8.1'
+    compile 'com.android.support:cardview-v7:26.1.0'
+    compile 'com.github.clans:fab:1.6.4'
+    androidTestCompile 'com.android.support.test.espresso:espresso-contrib:2.2.2', {
+        exclude group: 'com.android.support', module: 'support-annotations'
+        exclude group: 'com.android.support', module: 'support-v4'
+        exclude group: 'com.android.support', module: 'design'
+        exclude group: 'com.android.support', module: 'recyclerview-v7'
+
+        annotationProcessor 'com.jakewharton:butterknife-compiler:8.8.1'
+        compile 'com.jakewharton:butterknife:8.8.1'
+    }
+}
+
+
+
+
+
+apply plugin: 'com.google.gms.google-services'
